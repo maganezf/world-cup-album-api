@@ -1,73 +1,98 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+<div align="center">
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## World Cup Album Api
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<sub>Built with ❤︎ by <a href="https://github.com/maganezf">Maganez
+Filho</a></sub>
 
-## Description
+</div>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## :pushpin: Table of Contents
 
-## Installation
+- [Technologies](#computer-technologies)
+- [Purpose and Features](#dart-purpose-and-features)
+- [Api Routes](#spiral_note_pad-api-routes)
+- [How to Run](#construction_worker-how-to-run)
+- [Found a bug? Missing a specific feature?](#bug-issues)
+- [Contributing](#tada-contributing)
+- [License](#closed_book-license)
+
+## :computer: Technologies
+
+This project was made using the follow technologies:
+
+- [Nest.js](https://nestjs.com/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Yarn](https://yarnpkg.com/)
+- [Eslint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Editorconfig](https://editorconfig.org/)
+
+### :dart: Purpose and Features
+
+- A simple api project made with Nest.js (Node.js) and Typescript for purpose studies
+
+### :spiral_note_pad: Api Routes
+
+| Method | Route                              | Has params or body?                             | Description                           |
+| :----- | :--------------------------------- | :---------------------------------------------- | :------------------------------------ |
+| POST   | /api/stickers/create               | HAS BODY                                        | crate a new sticker                   |
+| GET    | /api/stickers                      | NO                                              | get all stickers                      |
+| GET    | /api/stickers/all-from-user?id=:id | HAS QUERY PARAM (id: string)                    | get all stickers from a specific user |
+| GET    | /api/stickers/:id                  | HAS PARAM (id: string)                          | get a specific sticker by id          |
+| PATCH  | /api/stickers/:id?id=:id           | HAS PARAM and QUERY PARAM (id: string for both) | update a specific sticker by id       |
+| DELETE | /api/stickers/:id                  | HAS PARAM (id: string )                         | remove a specific sticker by id       |
+
+## :construction_worker: How to Run
 
 ```bash
-$ npm install
+# Clone Repository and change directory to project
+$ git clone https://github.com/maganezf/world-cup-album-api.git && cd world-cup-album-api
 ```
 
-## Running the app
-
 ```bash
+# Install Dependencies
+$ npm install or yarn install
+
+# Run Application:
+
 # development
-$ npm run start
+$ npm or yarn run start
 
 # watch mode
-$ npm run start:dev
+$ npm or yarn run start:dev
 
 # production mode
-$ npm run start:prod
+$ npm or yarn run start:prod
 ```
 
-## Test
+Go to <http://localhost:3333/api> to see the result.
 
-```bash
-# unit tests
-$ npm run test
+## :bug: Issues
 
-# e2e tests
-$ npm run test:e2e
+Feel free to **file a new issue** with a respective title and description on
+this repository. If you already found a solution to your problem, **i would love
+to review your pull request**!
 
-# test coverage
-$ npm run test:cov
-```
+## :tada: Contributing
 
-## Support
+First of all, thank you for being interested in helping out, your time is always
+appreciated in every way. 💯
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Here's some tips:
 
-## Stay in touch
+- Check the
+  [issues page](https://github.com/maganezf/world-cup-album-api/issues)
+  for already opened issues (or maybe even closed ones) that might already
+  address your question/bug/feature request.
+- Feature requests are welcomed! Provide some details on why it would be helpful
+  for you and others, explain how you're using bull-board and if possible even
+  some screenshots if you are willing to mock something!
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## :closed_book: License
 
-## License
+Released in 2022.
 
-Nest is [MIT licensed](LICENSE).
+Made with ❤︎ by [Maganez Filho](https://github.com/maganezf) 🚀.
+
+Give a ⭐ if this project helped you!
