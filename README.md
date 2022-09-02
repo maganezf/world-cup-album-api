@@ -1,6 +1,8 @@
 <div align="center">
 
-## World Cup Album Api
+## World Cup Album API
+
+### A simple API project made with Nest.js (Node.js) and Typescript for studies purpose
 
 <sub>Built with ❤︎ by <a href="https://github.com/maganezf">Maganez
 Filho</a></sub>
@@ -11,7 +13,7 @@ Filho</a></sub>
 
 - [Technologies](#computer-technologies)
 - [Purpose and Features](#dart-purpose-and-features)
-- [Api Routes](#spiral_note_pad-api-routes)
+- [Api Routes](#shipit-api-routes)
 - [How to Run](#construction_worker-how-to-run)
 - [Found a bug? Missing a specific feature?](#bug-issues)
 - [Contributing](#tada-contributing)
@@ -30,9 +32,9 @@ This project was made using the follow technologies:
 
 ### :dart: Purpose and Features
 
-- A simple api project made with Nest.js (Node.js) and Typescript for purpose studies
+- A simple API project made with Nest.js (Node.js) and Typescript for studies purpose
 
-### :spiral_note_pad: Api Routes
+### :shipit: Api Routes
 
 | Method | Route                              | Has params or body?                             | Description                           |
 | :----- | :--------------------------------- | :---------------------------------------------- | :------------------------------------ |
