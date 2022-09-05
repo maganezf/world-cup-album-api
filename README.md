@@ -38,7 +38,7 @@ This project was made using the follow technologies:
 
 | Method | Route                              | Has params or body?                             | Description                           |
 | :----- | :--------------------------------- | :---------------------------------------------- | :------------------------------------ |
-| POST   | /api/stickers/create               | HAS BODY                                        | crate a new sticker                   |
+| POST   | /api/stickers/create               | HAS BODY                                        | create a new sticker                  |
 | GET    | /api/stickers                      | NO                                              | get all stickers                      |
 | GET    | /api/stickers/all-from-user?id=:id | HAS QUERY PARAM (id: string)                    | get all stickers from a specific user |
 | GET    | /api/stickers/:id                  | HAS PARAM (id: string)                          | get a specific sticker by id          |
