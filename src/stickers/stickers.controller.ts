@@ -10,7 +10,10 @@ import {
 } from '@nestjs/common';
 import { CreateStickerDto } from './dto/create-sticker-dto';
 import { FindAllFromUserDto } from './dto/find-all-from-user-dto';
-import { UpdateStickerDto } from './dto/update-sticker-dto';
+import {
+  UpdateStickerBodyDto,
+  UpdateStickerQueryDto,
+} from './dto/update-sticker-dto';
 import { StickersService } from './stickers.service';
 
 @Controller('/api/stickers')
@@ -28,8 +31,8 @@ export class StickersController {
   }
 
   @Get('/all-from-user')
-  findAllFromUserDto(@Query() { id }: FindAllFromUserDto) {
-    return this.stickersService.findAllStickersFromUserDto(id);
+  findAllFromUser(@Query() { id }: FindAllFromUserDto) {
+    return this.stickersService.findAllStickersFromUser(id);
   }
 
   @Get(':id')
@@ -37,8 +40,11 @@ export class StickersController {
     return this.stickersService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatedSticker: UpdateStickerDto) {
+  @Patch('/edit')
+  update(
+    @Query() { id }: UpdateStickerQueryDto,
+    @Body() updatedSticker: UpdateStickerBodyDto,
+  ) {
     return this.stickersService.update(id, updatedSticker);
   }
 

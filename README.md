@@ -2,7 +2,7 @@
 
 ## World Cup Album API
 
-### A simple API project made with Nest.js (Node.js) and Typescript for studies purpose
+### An API project made with Nest.js (Node.js), Typescript and PostgreSQL for studies purpose
 
 <sub>Built with ❤︎ by <a href="https://github.com/maganezf">Maganez
 Filho</a></sub>
@@ -25,6 +25,7 @@ This project was made using the follow technologies:
 
 - [Nest.js](https://nestjs.com/)
 - [Typescript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
 - [Yarn](https://yarnpkg.com/)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
@@ -32,20 +33,37 @@ This project was made using the follow technologies:
 
 ### :dart: Purpose and Features
 
-- A simple API project made with Nest.js (Node.js) and Typescript for studies purpose
+- An API project made with Nest.js (Node.js), Typescript and PostgreSQL for studies purpose;
+- Validation;
+- Database integration;
 
 ### :shipit: Api Routes
 
-| Method | Route                              | Has params or body?                             | Description                           |
-| :----- | :--------------------------------- | :---------------------------------------------- | :------------------------------------ |
-| POST   | /api/stickers/create               | HAS BODY                                        | create a new sticker                  |
-| GET    | /api/stickers                      | NO                                              | get all stickers                      |
-| GET    | /api/stickers/all-from-user?id=:id | HAS QUERY PARAM (id: string)                    | get all stickers from a specific user |
-| GET    | /api/stickers/:id                  | HAS PARAM (id: string)                          | get a specific sticker by id          |
-| PATCH  | /api/stickers/:id?id=:id           | HAS PARAM and QUERY PARAM (id: string for both) | update a specific sticker by id       |
-| DELETE | /api/stickers/:id                  | HAS PARAM (id: string )                         | remove a specific sticker by id       |
+| Method | Route                              | Has params or body?          | Description                           |
+| :----- | :--------------------------------- | :--------------------------- | :------------------------------------ |
+| POST   | /api/stickers/create               | HAS BODY                     | create a new sticker                  |
+| GET    | /api/stickers                      | NO                           | get all stickers                      |
+| GET    | /api/stickers/all-from-user?id=:id | HAS QUERY PARAM (id: string) | get all stickers from a specific user |
+| GET    | /api/stickers/:id                  | HAS PARAM (id: string)       | get a specific sticker by id          |
+| PATCH  | /api/stickers?id=:id               | HAS QUERY PARAM (id: string) | update a specific sticker by id       |
+| DELETE | /api/stickers/:id                  | HAS PARAM (id: string )      | remove a specific sticker by id       |
 
 ## :construction_worker: How to Run
+
+```bash
+# First steps:
+1. Have sure that have installed the docker on your machine
+
+2. Run this command to create your postgres container:
+
+$ docker run --name worldCupApi -e POSTGRES_PASSWORD=123456789 -p 5432:5432 -d postgres`
+
+3. Create a new table to use in this application (on your postgres database)
+
+4. Set up your env variables with base on '.env.example' file
+
+5. Follow the next steps below
+```
 
 ```bash
 # Clone Repository and change directory to project
@@ -57,7 +75,6 @@ $ git clone https://github.com/maganezf/world-cup-album-api.git && cd world-cup-
 $ npm install or yarn install
 
 # Run Application:
-
 # development
 $ npm or yarn run start
 

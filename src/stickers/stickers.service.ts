@@ -1,20 +1,23 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateStickerDto } from './dto/create-sticker-dto';
 import { StickerDto } from './dto/sticker.dto';
 import { StickersResponseDto } from './dto/stickers-response.dto';
+import { StickerEntity } from './entities/sticker.entity';
 
 @Injectable()
 export class StickersService {
-  localDb: StickerDto[] = [];
+  constructor(
+    @InjectRepository(StickerEntity)
+    private readonly stickersRepository: Repository<StickerEntity>,
+  ) {}
 
-  create(sticker: CreateStickerDto): StickersResponseDto<StickerDto> {
-    const newSticker = {
-      id: uuid(),
-      ...sticker,
-    };
-
-    this.localDb.push(newSticker);
+  async create(
+    sticker: CreateStickerDto,
+  ): Promise<StickersResponseDto<StickerEntity>> {
+    const newSticker = this.stickersRepository.create(sticker);
+    await this.stickersRepository.save(newSticker);
 
     return {
       message: `The sticker '${newSticker.playerName}' from the user '${newSticker.ownerName}' was added successfully`,
@@ -22,23 +25,45 @@ export class StickersService {
     };
   }
 
-  findAll(): StickersResponseDto<StickerDto[]> {
+  async findAll(): Promise<StickersResponseDto<StickerDto[]>> {
+    const allData = await this.stickersRepository.find();
+
     return {
       message: 'Got all stickers successfully',
-      data: this.localDb,
+      allData,
     };
   }
 
-  findAllStickersFromUserDto(id: string): StickersResponseDto<StickerDto[]> {
+  async findAllStickersFromUser(
+    id: string,
+  ): Promise<StickersResponseDto<StickerDto[]>> {
+    const ownerExists = await this.stickersRepository
+      .findOneBy({
+        ownerName: id,
+      })
+      .then((data) => data?.ownerName);
+
+    if (!ownerExists) {
+      throw new HttpException(
+        "This owner don't exists in the database",
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const allData = await this.stickersRepository.findBy({
+      ownerName: id,
+    });
+
     return {
       message: `Got all stickers from the user with the id: '${id}' successfully`,
-      data: this.localDb.filter((sticker) => sticker.ownerName === id),
+      allData,
     };
   }
 
-  findOne(id: string): StickersResponseDto<StickerDto> {
-    const sticker = this.localDb.find((sticker) => sticker.id === id);
-    if (!sticker) {
+  async findOne(id: string): Promise<StickersResponseDto<StickerDto>> {
+    const sticker = await this.stickersRepository.findOneBy({ id });
+
+    if (!sticker?.id) {
       throw new HttpException(
         "This sticker don't exists in the database",
         HttpStatus.NOT_FOUND,
@@ -51,21 +76,20 @@ export class StickersService {
     };
   }
 
-  update(
+  async update(
     id: string,
     updatedSticker: Partial<StickerDto>,
-  ): StickersResponseDto<Partial<StickerDto>> {
-    const oldSticker = this.localDb.find((sticker) => sticker.id === id);
-    if (!oldSticker) {
+  ): Promise<StickersResponseDto<Partial<StickerDto>>> {
+    const oldSticker = await this.stickersRepository.findOneBy({ id });
+
+    if (!oldSticker?.id) {
       throw new HttpException(
         "This sticker don't exists in the database",
         HttpStatus.NOT_FOUND,
       );
     }
 
-    this.localDb = this.localDb.filter((sticker) => sticker.id !== id);
-
-    this.localDb.push({
+    await this.stickersRepository.save({
       ...oldSticker,
       ...updatedSticker,
     });
@@ -76,8 +100,9 @@ export class StickersService {
     };
   }
 
-  remove(id: string): StickersResponseDto<StickerDto[]> {
-    const sticker = this.localDb.find((sticker) => sticker.id === id);
+  async remove(id: string): Promise<StickersResponseDto<StickerDto[]>> {
+    const sticker = await this.stickersRepository.findOneBy({ id });
+
     if (!sticker) {
       throw new HttpException(
         "This sticker don't exists in the database",
@@ -85,11 +110,13 @@ export class StickersService {
       );
     }
 
-    this.localDb = this.localDb.filter((sticker) => sticker.id !== id);
+    await this.stickersRepository.remove(sticker);
+
+    const allData = await this.stickersRepository.find();
 
     return {
       message: `The sticker with the id: '${id}' was removed successfully`,
-      data: this.localDb,
+      allData,
     };
   }
 }
