@@ -61,9 +61,9 @@ export class StickersService {
   }
 
   async findOne(id: string): Promise<StickersResponseDto<StickerDto>> {
-    const sticker = await this.stickersRepository.findOneBy({ id });
+    const sticker = await this.stickersRepository.findOneBy({ stickerID: id });
 
-    if (!sticker?.id) {
+    if (!sticker?.stickerID) {
       throw new HttpException(
         "This sticker don't exists in the database",
         HttpStatus.NOT_FOUND,
@@ -80,9 +80,11 @@ export class StickersService {
     id: string,
     updatedSticker: Partial<StickerDto>,
   ): Promise<StickersResponseDto<Partial<StickerDto>>> {
-    const oldSticker = await this.stickersRepository.findOneBy({ id });
+    const oldSticker = await this.stickersRepository.findOneBy({
+      stickerID: id,
+    });
 
-    if (!oldSticker?.id) {
+    if (!oldSticker?.stickerID) {
       throw new HttpException(
         "This sticker don't exists in the database",
         HttpStatus.NOT_FOUND,
@@ -101,7 +103,7 @@ export class StickersService {
   }
 
   async remove(id: string): Promise<StickersResponseDto<StickerDto[]>> {
-    const sticker = await this.stickersRepository.findOneBy({ id });
+    const sticker = await this.stickersRepository.findOneBy({ stickerID: id });
 
     if (!sticker) {
       throw new HttpException(

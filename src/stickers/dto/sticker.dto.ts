@@ -1,5 +1,5 @@
 export class StickerDto {
-  id: string;
+  stickerID: string;
   playerName: string;
   playerCountry: string;
   ownerName: string;

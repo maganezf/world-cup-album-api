@@ -12,7 +12,7 @@ export class UpdateStickerBodyDto {
   @IsUUID()
   @IsString()
   @IsNotEmpty({ message: ERROR_MESSAGES.INVALID_REQUIRED_FIELD })
-  id: string;
+  stickerID: string;
 
   @IsString()
   @IsNotEmpty({ message: ERROR_MESSAGES.INVALID_REQUIRED_FIELD })
