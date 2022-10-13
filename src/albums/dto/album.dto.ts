@@ -1,4 +1,4 @@
-import { StickerDto } from './sticker.dto';
+import { StickerDto } from '../../stickers/dto/sticker.dto';
 
 export class AlbumDto {
   albumID: string;

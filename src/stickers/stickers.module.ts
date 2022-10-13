@@ -1,21 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AlbumEntity } from './entities/album.entity';
-import { PhotoEntity } from './entities/photo.entity';
+import { AlbumEntity } from '../albums/entities/album.entity';
 import { StickerEntity } from './entities/sticker.entity';
-import { UserEntity } from './entities/user.entity';
 import { StickersController } from './stickers.controller';
 import { StickersService } from './stickers.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      StickerEntity,
-      UserEntity,
-      PhotoEntity,
-      AlbumEntity,
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([StickerEntity, AlbumEntity])],
   controllers: [StickersController],
   providers: [StickersService],
 })

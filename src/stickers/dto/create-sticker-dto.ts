@@ -10,8 +10,4 @@ export class CreateStickerDto implements Omit<StickerDto, 'stickerID'> {
   @IsString()
   @IsNotEmpty({ message: ERROR_MESSAGES.INVALID_REQUIRED_FIELD })
   playerCountry: string;
-
-  @IsString()
-  @IsNotEmpty({ message: ERROR_MESSAGES.INVALID_REQUIRED_FIELD })
-  ownerName: string;
 }

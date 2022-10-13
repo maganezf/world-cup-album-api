@@ -1,4 +1,4 @@
-import { AlbumEntity } from '../entities/album.entity';
+import { AlbumEntity } from '../../albums/entities/album.entity';
 
 export class UserDto {
   userID: string;
