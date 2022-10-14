@@ -39,14 +39,13 @@ This project was made using the follow technologies:
 
 ### :shipit: Api Routes
 
-| Method | Route                              | Has params or body?          | Description                           |
-| :----- | :--------------------------------- | :--------------------------- | :------------------------------------ |
-| POST   | /api/stickers/create               | HAS BODY                     | create a new sticker                  |
-| GET    | /api/stickers                      | NO                           | get all stickers                      |
-| GET    | /api/stickers/all-from-user?id=:id | HAS QUERY PARAM (id: string) | get all stickers from a specific user |
-| GET    | /api/stickers/:id                  | HAS PARAM (id: string)       | get a specific sticker by id          |
-| PATCH  | /api/stickers?id=:id               | HAS QUERY PARAM (id: string) | update a specific sticker by id       |
-| DELETE | /api/stickers/:id                  | HAS PARAM (id: string )      | remove a specific sticker by id       |
+| Method | Route                                   | Has params or body?          | Description                                      |
+| :----- | :-------------------------------------- | :--------------------------- | :----------------------------------------------- |
+| POST   | /api/(users, albums or stickers)/create | HAS BODY                     | create a new (user, album or sticker)            |
+| GET    | /api/(users, albums or stickers)        | NO                           | get all (users, albums or stickers)              |
+| GET    | /api/(users, albums or stickers)/:id    | HAS PARAM (id: string)       | get a specific (user, album or sticker) by id    |
+| PATCH  | /api/(users, albums or stickers)?id=:id | HAS QUERY PARAM (id: string) | update a specific (user, album or sticker) by id |
+| DELETE | /api/(users, albums or stickers)/:id    | HAS PARAM (id: string )      | remove a specific (user, album or sticker) by id |
 
 ## :construction_worker: How to Run
 
