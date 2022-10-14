@@ -6,7 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AlbumEntity } from './album.entity';
+import { AlbumEntity } from '../../albums/entities/album.entity';
 import { PhotoEntity } from './photo.entity';
 
 @Entity({ name: 'user' })
@@ -20,10 +20,15 @@ export class UserEntity {
   @Column({ type: 'text', nullable: false })
   email: string;
 
-  @OneToOne(() => PhotoEntity, (photo) => photo)
+  @OneToOne(() => PhotoEntity, (photo) => photo, {
+    eager: true,
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   photo: PhotoEntity;
 
   @OneToMany(() => AlbumEntity, (album) => album, { onDelete: 'SET NULL' })
+  @JoinColumn()
   albums: AlbumEntity[];
 }

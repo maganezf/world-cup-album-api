@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ResponseDto } from '../@types';
+import { AlbumEntity } from '../albums/entities/album.entity';
 import { CreateStickerDto } from './dto/create-sticker-dto';
 import { StickerDto } from './dto/sticker.dto';
-import { StickersResponseDto } from './dto/stickers-response.dto';
 import { StickerEntity } from './entities/sticker.entity';
 
 @Injectable()
@@ -11,56 +12,31 @@ export class StickersService {
   constructor(
     @InjectRepository(StickerEntity)
     private readonly stickersRepository: Repository<StickerEntity>,
+
+    @InjectRepository(AlbumEntity)
+    private readonly albumsRepository: Repository<AlbumEntity>,
   ) {}
 
-  async create(
-    sticker: CreateStickerDto,
-  ): Promise<StickersResponseDto<StickerEntity>> {
+  async create(sticker: CreateStickerDto): Promise<ResponseDto<StickerEntity>> {
     const newSticker = this.stickersRepository.create(sticker);
     await this.stickersRepository.save(newSticker);
 
     return {
-      message: `The sticker '${newSticker.playerName}' from the user '${newSticker.ownerName}' was added successfully`,
+      message: `The sticker '${newSticker.playerName}' was added successfully`,
       data: newSticker,
     };
   }
 
-  async findAll(): Promise<StickersResponseDto<StickerDto[]>> {
-    const allData = await this.stickersRepository.find();
+  async findAll(): Promise<ResponseDto<StickerDto[]>> {
+    const data = await this.stickersRepository.find();
 
     return {
       message: 'Got all stickers successfully',
-      allData,
+      data,
     };
   }
 
-  async findAllStickersFromUser(
-    id: string,
-  ): Promise<StickersResponseDto<StickerDto[]>> {
-    const ownerExists = await this.stickersRepository
-      .findOneBy({
-        ownerName: id,
-      })
-      .then((data) => data?.ownerName);
-
-    if (!ownerExists) {
-      throw new HttpException(
-        "This owner don't exists in the database",
-        HttpStatus.NOT_FOUND,
-      );
-    }
-
-    const allData = await this.stickersRepository.findBy({
-      ownerName: id,
-    });
-
-    return {
-      message: `Got all stickers from the user with the id: '${id}' successfully`,
-      allData,
-    };
-  }
-
-  async findOne(id: string): Promise<StickersResponseDto<StickerDto>> {
+  async findOne(id: string): Promise<ResponseDto<StickerDto>> {
     const sticker = await this.stickersRepository.findOneBy({ stickerID: id });
 
     if (!sticker?.stickerID) {
@@ -79,7 +55,7 @@ export class StickersService {
   async update(
     id: string,
     updatedSticker: Partial<StickerDto>,
-  ): Promise<StickersResponseDto<Partial<StickerDto>>> {
+  ): Promise<ResponseDto<Partial<StickerDto>>> {
     const oldSticker = await this.stickersRepository.findOneBy({
       stickerID: id,
     });
@@ -102,23 +78,26 @@ export class StickersService {
     };
   }
 
-  async remove(id: string): Promise<StickersResponseDto<StickerDto[]>> {
+  async remove(id: string): Promise<ResponseDto<StickerDto[]>> {
     const sticker = await this.stickersRepository.findOneBy({ stickerID: id });
 
-    if (!sticker) {
+    if (!sticker.stickerID) {
       throw new HttpException(
         "This sticker don't exists in the database",
         HttpStatus.NOT_FOUND,
       );
     }
 
+    const albums = await this.albumsRepository.find();
+    albums.forEach(async (album) => await this.albumsRepository.remove(album));
+
     await this.stickersRepository.remove(sticker);
 
-    const allData = await this.stickersRepository.find();
+    const data = await this.stickersRepository.find();
 
     return {
       message: `The sticker with the id: '${id}' was removed successfully`,
-      allData,
+      data,
     };
   }
 }

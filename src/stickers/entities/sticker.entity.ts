@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { AlbumEntity } from './album.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'sticker' })
 export class StickerEntity {
@@ -11,10 +10,4 @@ export class StickerEntity {
 
   @Column({ type: 'text', nullable: false })
   playerCountry: string;
-
-  @Column({ type: 'text', nullable: false })
-  ownerName: string;
-
-  @ManyToMany(() => AlbumEntity, (album) => album.albumID)
-  albums: AlbumEntity[];
 }

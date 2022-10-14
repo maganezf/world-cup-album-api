@@ -56,7 +56,7 @@ This project was made using the follow technologies:
 
 2. Run this command to create your postgres container:
 
-$ docker run --name worldCupApi -e POSTGRES_PASSWORD=123456789 -p 5432:5432 -d postgres`
+$ docker run --name postgres -e POSTGRES_PASSWORD=123456789 -p 5432:5432 -d postgres`
 
 3. Create a new table to use in this application (on your postgres database)
 

@@ -6,8 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { StickerEntity } from './sticker.entity';
-import { UserEntity } from './user.entity';
+import { StickerEntity } from '../../stickers/entities/sticker.entity';
+import { UserEntity } from '../../users/entities/user.entity';
 
 @Entity({ name: 'album' })
 export class AlbumEntity {
@@ -17,10 +17,10 @@ export class AlbumEntity {
   @Column({ type: 'text', nullable: false })
   name: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.userID)
+  @ManyToOne(() => UserEntity, (user) => user.userID, { onDelete: 'CASCADE' })
   userID: string;
 
-  @ManyToMany(() => StickerEntity, (sticker) => sticker.stickerID)
+  @ManyToMany(() => StickerEntity, (sticker) => sticker)
   @JoinTable()
   stickers: StickerEntity[];
 }

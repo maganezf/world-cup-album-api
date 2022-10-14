@@ -9,7 +9,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateStickerDto } from './dto/create-sticker-dto';
-import { FindAllFromUserDto } from './dto/find-all-from-user-dto';
 import {
   UpdateStickerBodyDto,
   UpdateStickerQueryDto,
@@ -28,11 +27,6 @@ export class StickersController {
   @Get()
   findAll() {
     return this.stickersService.findAll();
-  }
-
-  @Get('/all-from-user')
-  findAllFromUser(@Query() { id }: FindAllFromUserDto) {
-    return this.stickersService.findAllStickersFromUser(id);
   }
 
   @Get(':id')
