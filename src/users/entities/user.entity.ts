@@ -1,4 +1,7 @@
+import { hashSync } from 'bcrypt';
+import { Exclude } from 'class-transformer';
 import {
+  BeforeInsert,
   Column,
   Entity,
   JoinColumn,
@@ -14,11 +17,15 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   userID: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   name: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   email: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  @Exclude()
+  password: string;
 
   @OneToOne(() => PhotoEntity, (photo) => photo, {
     eager: true,
@@ -31,4 +38,9 @@ export class UserEntity {
   @OneToMany(() => AlbumEntity, (album) => album, { onDelete: 'SET NULL' })
   @JoinColumn()
   albums: AlbumEntity[];
+
+  @BeforeInsert()
+  hashPassword() {
+    this.password = hashSync(this.password, 10);
+  }
 }

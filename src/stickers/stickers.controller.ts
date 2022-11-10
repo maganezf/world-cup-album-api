@@ -7,7 +7,9 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateStickerDto } from './dto/create-sticker-dto';
 import {
   UpdateStickerBodyDto,
@@ -16,6 +18,7 @@ import {
 import { StickersService } from './stickers.service';
 
 @Controller('/api/stickers')
+@UseGuards(AuthGuard('jwt'))
 export class StickersController {
   constructor(private readonly stickersService: StickersService) {}
 

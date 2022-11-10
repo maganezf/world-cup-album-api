@@ -8,12 +8,14 @@ import {
   IsObject,
   IsString,
   IsUUID,
+  Matches,
   ValidateNested,
 } from 'class-validator';
 import { AlbumEntity } from '../../albums/entities/album.entity';
 
-import { ERROR_MESSAGES } from '../../utils/constants';
+import { ERROR_MESSAGES, RegularExpressions } from '../../helpers/constants';
 import { PhotoEntity } from '../entities/photo.entity';
+import { UserDto } from './user.dto';
 
 export class UpdateUserQueryDto {
   @IsUUID()
@@ -22,7 +24,7 @@ export class UpdateUserQueryDto {
   id: string;
 }
 
-export class UpdateUserBodyDto {
+export class UpdateUserBodyDto implements Omit<UserDto, 'password'> {
   @IsUUID()
   @IsString()
   @IsNotEmpty({ message: ERROR_MESSAGES.INVALID_REQUIRED_FIELD })
@@ -34,6 +36,9 @@ export class UpdateUserBodyDto {
 
   @IsString()
   @IsEmail()
+  @Matches(RegularExpressions.dcxEmail, {
+    message: ERROR_MESSAGES.INVALID_EMAIL,
+  })
   @IsNotEmpty({ message: ERROR_MESSAGES.INVALID_REQUIRED_FIELD })
   email: string;
 

@@ -6,8 +6,8 @@ import {
   IsUUID,
   ValidateNested,
 } from 'class-validator';
+import { ERROR_MESSAGES } from '../../helpers/constants';
 import { StickerEntity } from '../../stickers/entities/sticker.entity';
-import { ERROR_MESSAGES } from '../../utils/constants';
 import { AlbumDto } from './album.dto';
 
 export class CreateAlbumDto implements Omit<AlbumDto, 'albumID'> {

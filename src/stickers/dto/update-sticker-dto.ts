@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
-import { ERROR_MESSAGES } from '../../utils/constants';
+import { ERROR_MESSAGES } from '../../helpers/constants';
 
 export class UpdateStickerQueryDto {
   @IsUUID()

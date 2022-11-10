@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { ERROR_MESSAGES } from '../../utils/constants';
+import { ERROR_MESSAGES } from '../../helpers/constants';
 import { StickerDto } from './sticker.dto';
 
 export class CreateStickerDto implements Omit<StickerDto, 'stickerID'> {

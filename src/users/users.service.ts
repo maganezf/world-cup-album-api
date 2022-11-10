@@ -59,6 +59,19 @@ export class UsersService {
     };
   }
 
+  async findOneByEmail(email: string): Promise<UserDto> {
+    const user = await this.usersRepository.findOneBy({ email });
+
+    if (!user?.email) {
+      throw new HttpException(
+        "This user doesn't exists in the database",
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return user;
+  }
+
   async update(
     id: string,
     updatedUser: Partial<UserDto>,
@@ -75,6 +88,7 @@ export class UsersService {
     }
 
     const user = { ...oldUser, ...updatedUser };
+    delete user.password;
 
     await this.photoRepository.remove(oldUser.photo);
     await this.photoRepository.save(user.photo);
